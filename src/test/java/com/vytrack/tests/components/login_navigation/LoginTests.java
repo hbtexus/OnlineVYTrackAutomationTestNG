@@ -10,10 +10,11 @@ import org.testng.annotations.Test;
 
 public class LoginTests extends TestBase {
 
-    LoginPage loginPage = new LoginPage();
-
     @Test
     public void loginTest1(){
+        //we are instantiating page class inside a tests class,
+        //because for second test, if we run all tests in a row, driver will have null session
+        LoginPage loginPage = new LoginPage();
         String username = ConfigurationReader.getProperty("storemanagerusername");
         String password = ConfigurationReader.getProperty("storemanagerpassword");
         loginPage.clickRememberMe();
@@ -25,9 +26,9 @@ public class LoginTests extends TestBase {
 
     @Test
     public void negativeLoginTest1(){
+        LoginPage loginPage = new LoginPage();
         loginPage.login("wrongusername", "wrongpassword");
         Assert.assertEquals(loginPage.getErrorMessage(), "Invalid user name or password.");
-        SeleniumUtils.waitPlease(3);
     }
 
 

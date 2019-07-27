@@ -32,6 +32,7 @@ public class Driver {
         return driver;
     }
 
+
     //will kill driver
     public static void closeDriver(){
         if(driver!=null){

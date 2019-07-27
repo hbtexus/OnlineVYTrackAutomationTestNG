@@ -12,9 +12,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class LoginPage {
-    //we are
-    private WebDriver driver = Driver.getDriver();
-    private WebDriverWait wait = new WebDriverWait(driver, Long.valueOf(ConfigurationReader.getProperty("explicitwait")));
+    //we
+    private WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Long.valueOf(ConfigurationReader.getProperty("explicitwait")));
 
     @FindBy(id = "prependedInput")
     public WebElement userNameElement;
@@ -38,14 +37,13 @@ public class LoginPage {
     public WebElement errorMessageElement;
 
     public LoginPage(){
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(Driver.getDriver(), this);
     }
 
     public void login(String username, String password){
         userNameElement.sendKeys(username);
         passwordElement.sendKeys(password);
         loginButtonElement.click();
-        VYTrackUtils.waitUntilLoaderScreenDisappear(driver);
     }
 
     public String getErrorMessage(){
