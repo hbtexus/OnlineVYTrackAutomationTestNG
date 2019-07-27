@@ -11,6 +11,7 @@ public class VYTrackUtils {
     private static String usernamelocator = "prependedInput";
     private static String passwordLocator = "prependedInput2";
     private static String loaderMaskLocator = "div[class='loader-mask shown']";
+    private static String pageSubTitleLocator = "h1[class='oro-subtitle']";
 
 
     /**
@@ -62,5 +63,13 @@ public class VYTrackUtils {
         }catch (Exception e){
             System.out.println(e+" :: Loader mask doesn't present.");
         }
+    }
+
+    /**
+     *
+     * @return page name, for example: Dashboard
+     */
+    public static String getPageSubTitle(){
+        return Driver.getDriver().findElement(By.cssSelector(pageSubTitleLocator)).getText();
     }
 }
