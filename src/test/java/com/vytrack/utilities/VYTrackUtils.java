@@ -82,6 +82,21 @@ public class VYTrackUtils {
     }
 
     /**
+     * Waits until loader screen present. If loader screen will not pop up at all,
+     * NoSuchElementException will be handled  bu try/catch block
+     * Thus, we can continue in any case.
+     *
+     */
+    public static void waitUntilLoaderScreenDisappear() {
+        try {
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Long.valueOf(ConfigurationReader.getProperty("explicitwait")));
+            wait.until(ExpectedConditions.invisibilityOf(Driver.getDriver().findElement(By.cssSelector(loaderMaskLocator))));
+        }catch (Exception e){
+            System.out.println(e+" :: Loader mask doesn't present.");
+        }
+    }
+
+    /**
      *
      * @return page name, for example: Dashboard
      */

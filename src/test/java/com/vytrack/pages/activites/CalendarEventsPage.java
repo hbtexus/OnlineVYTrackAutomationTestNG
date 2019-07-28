@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class CalendarEventsPage {
     @FindBy(css = "[title='Create Calendar event']")
     public WebElement createCalendarEventBtn;
@@ -26,6 +28,9 @@ public class CalendarEventsPage {
     @FindBy(css = "a[title='Reset']")
     public WebElement resetBtnElement;
 
+    @FindBy(css = ".grid-header-cell__label")
+    public List<WebElement> headers;
+
     public CalendarEventsPage(){
         PageFactory.initElements(Driver.getDriver(), this);
     }
@@ -42,9 +47,23 @@ public class CalendarEventsPage {
         //click on it
         //or
         //ckeckbox is selected and you want to unselect it
-        if((yesOrNo && !gridOption.isSelected())  || (
+        if((yesOrNo == true && !gridOption.isSelected())  || (
                 yesOrNo == false && gridOption.isSelected())){
             gridOption.click();
         }
+    }
+    //let's write a method
+    //that will take a headerName as a parameter
+    //and will try to look up for header name in the collection of headers
+    //if header name was not found
+    //return false
+    //otherwise return true
+    public boolean verifyHeaderExists(String headerNameOrColumnName){
+        for (WebElement tableHeader: headers){
+            if(tableHeader.getText().equals(headerNameOrColumnName)){
+                return true;
+            }
+        }
+        return false;
     }
 }
