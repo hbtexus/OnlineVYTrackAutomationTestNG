@@ -60,7 +60,7 @@ public class CalendarEventsPage {
     //otherwise return true
     public boolean verifyHeaderExists(String headerNameOrColumnName){
         for (WebElement tableHeader: headers){
-            if(tableHeader.getText().equals(headerNameOrColumnName)){
+            if(tableHeader.getText().equalsIgnoreCase(headerNameOrColumnName)){
                 return true;
             }
         }

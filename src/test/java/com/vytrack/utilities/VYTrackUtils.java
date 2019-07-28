@@ -92,7 +92,7 @@ public class VYTrackUtils {
             WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Long.valueOf(ConfigurationReader.getProperty("explicitwait")));
             wait.until(ExpectedConditions.invisibilityOf(Driver.getDriver().findElement(By.cssSelector(loaderMaskLocator))));
         }catch (Exception e){
-            System.out.println(e+" :: Loader mask doesn't present.");
+            System.out.println("Loader mask doesn't present.");
         }
     }
 
