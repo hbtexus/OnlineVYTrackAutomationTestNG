@@ -10,9 +10,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class CalendarEventsTests extends TestBase {
-
     @Test
     public void verifyTitleColumn() {
+        extentLogger = report.createTest("Verify column names");
         LoginPage loginPage = new LoginPage();
         CalendarEventsPage calendarPage = new CalendarEventsPage();
         String username = ConfigurationReader.getProperty("storemanagerusername");
@@ -40,5 +40,109 @@ public class CalendarEventsTests extends TestBase {
 
         //Verify that title column name is visible again
         Assert.assertTrue(calendarPage.verifyHeaderExists("Title"), "Title column is not visible.");
+    }
+
+    @Test(description = "Verify that date auto adjustable")
+    public void verifyDateTest(){
+        extentLogger = report.createTest("Verify that date auto adjustable");
+        LoginPage loginPage = new LoginPage();
+        CalendarEventsPage calendarPage = new CalendarEventsPage();
+
+        String username = ConfigurationReader.getProperty("storemanagerusername");
+        String password = ConfigurationReader.getProperty("storemanagerpassword");
+        //login
+        loginPage.login(username, password);
+
+        //go to Calendar Events page
+        VYTrackUtils.navigateToModule("Activities", "Calendar Events");
+
+        calendarPage.clickOnCreateCalendarEvent();
+
+        calendarPage.selectStartOrEndDate("8/15/2019", "start");
+
+        //    verify start date is the same as end date
+        Assert.assertEquals(calendarPage.getStartDate(), calendarPage.getEndDate());
+
+
+    }
+
+    @Test(description = "Verify that date auto adjustable with today's amd tomorrow's date ")
+    public void verifyTodaysDateTest(){
+        extentLogger = report.createTest("Verify that date auto adjustable with today's amd tomorrow's date ");
+        LoginPage loginPage = new LoginPage();
+        CalendarEventsPage calendarPage = new CalendarEventsPage();
+
+        String username = ConfigurationReader.getProperty("storemanagerusername");
+        String password = ConfigurationReader.getProperty("storemanagerpassword");
+        //login
+        loginPage.login(username, password);
+
+        //go to Calendar Events page
+        VYTrackUtils.navigateToModule("Activities", "Calendar Events");
+
+        //click to create calendar event
+        calendarPage.clickOnCreateCalendarEvent();
+
+        //select tomorrow date
+        calendarPage.selectTomorrowDay();
+
+        Assert.assertEquals(calendarPage.getStartDate(), calendarPage.getEndDate());
+
+        //select today's date
+        calendarPage.selectTodaysDay();
+
+        //verify that start and end date is the same
+        Assert.assertEquals(calendarPage.getStartDate(), calendarPage.getEndDate());
+
+    }
+
+    @Test(description = "Verify that end time changes exactly 1 hours later")
+    public void verifyTimeTest(){
+        extentLogger = report.createTest("Verify that end time changes exactly 1 hours later");
+
+        LoginPage loginPage = new LoginPage();
+        CalendarEventsPage calendarPage = new CalendarEventsPage();
+
+        String username = ConfigurationReader.getProperty("storemanagerusername");
+        String password = ConfigurationReader.getProperty("storemanagerpassword");
+        //login
+        loginPage.login(username, password);
+
+        //go to Calendar Events page
+        VYTrackUtils.navigateToModule("Activities", "Calendar Events");
+
+        //click to create calendar event
+        calendarPage.clickOnCreateCalendarEvent();
+
+        //select any time
+        calendarPage.selectStartTime("1:00 PM");
+
+        //Verify that end time changes exactly 1 hours later
+        Assert.assertEquals(calendarPage.differenceBetweenStartTimeAndEndTime(), 1);
+
+    }
+
+    @Test(description = "Verify that end time is 12:30 AM")
+    public void verifyTimeTest2(){
+        extentLogger = report.createTest("Verify that end time is 12:30 AM");
+        LoginPage loginPage = new LoginPage();
+        CalendarEventsPage calendarPage = new CalendarEventsPage();
+
+        String username = ConfigurationReader.getProperty("storemanagerusername");
+        String password = ConfigurationReader.getProperty("storemanagerpassword");
+        //login
+        loginPage.login(username, password);
+
+        //go to Calendar Events page
+        VYTrackUtils.navigateToModule("Activities", "Calendar Events");
+
+        //click to create calendar event
+        calendarPage.clickOnCreateCalendarEvent();
+
+        //select 11:30 PM
+        calendarPage.selectStartTime("11:30 PM");
+
+        //Verify that end time is 12:30 AM
+        Assert.assertEquals(calendarPage.getEndTime(), "12:30 AM");
     }
 }

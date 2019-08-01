@@ -12,6 +12,7 @@ public class LoginTests extends TestBase {
 
     @Test
     public void loginTest1(){
+        extentLogger = report.createTest("Login as a store manager");
         //we are instantiating page class inside a tests class,
         //because for second test, if we run all tests in a row, driver will have null session
         LoginPage loginPage = new LoginPage();
@@ -23,12 +24,13 @@ public class LoginTests extends TestBase {
         //to verify that Dashboard page opened
         //Once page name Dashboard displays, means that we are logged successfully
         Assert.assertEquals(VYTrackUtils.getPageSubTitle(), "Dashboard");
+        extentLogger.pass("Verified that page name is Dashboard");
     }
 
     @Test
     public void negativeLoginTest1(){
+        extentLogger = report.createTest("Login with invalid credentials");
         LoginPage loginPage = new LoginPage();
-
         loginPage.login("wrongusername", "wrongpassword");
         Assert.assertEquals(loginPage.getErrorMessage(), "Invalid user name or password.");
     }
