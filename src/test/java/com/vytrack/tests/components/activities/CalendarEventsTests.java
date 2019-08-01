@@ -64,6 +64,8 @@ public class CalendarEventsTests extends TestBase {
         Assert.assertEquals(calendarPage.getStartDate(), calendarPage.getEndDate());
 
 
+
+
     }
 
     @Test(description = "Verify that date auto adjustable with today's amd tomorrow's date ")
