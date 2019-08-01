@@ -34,6 +34,7 @@ public class CalendarEventsPage {
 
     @FindBy(css = "[id^='date_selector_oro_calendar_event_form_start']")
     public WebElement startDate;
+
     @FindBy(css = "[id^='date_selector_oro_calendar_event_form_end']")
     public WebElement endDate;
 

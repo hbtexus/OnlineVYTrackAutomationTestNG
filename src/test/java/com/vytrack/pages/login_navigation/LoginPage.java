@@ -46,6 +46,7 @@ public class LoginPage {
         loginButtonElement.click();
     }
 
+
     public String getErrorMessage(){
         return errorMessageElement.getText();
     }
@@ -56,4 +57,6 @@ public class LoginPage {
             rememberMeElement.click();
         }
     }
+    
+    //TEST COMMENT
 }
